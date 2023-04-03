@@ -48,7 +48,10 @@ class CategoriesAndFeaturedScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Get.to(
-            () => const ItemsScreen(),
+            () => ItemsScreen(
+              categoryId: categories.id,
+              categoryTitle: categories.title,
+            ),
           );
         },
         child: SizedBox(

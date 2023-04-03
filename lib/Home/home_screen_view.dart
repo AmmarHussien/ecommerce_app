@@ -50,14 +50,14 @@ class HomeScreenView extends StatelessWidget {
                           height: size.height / 3.5,
                           width: size.width / 1.1,
                           child: PageView.builder(
-                            itemCount: controller.bannerData.length,
+                            itemCount: controller.bannerData!.length,
                             onPageChanged: controller.changeIndecator,
                             itemBuilder: (context, index) {
                               return Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                        controller.bannerData[index].image),
+                                        controller.bannerData![index].image),
                                   ),
                                 ),
                               );
@@ -200,7 +200,10 @@ class HomeScreenView extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Get.to(
-            () => const ItemsScreen(),
+            () => ItemsScreen(
+              categoryId: categories.id,
+              categoryTitle: categories.title,
+            ),
           );
         },
         child: SizedBox(

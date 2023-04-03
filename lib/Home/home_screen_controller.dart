@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class HomeScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late List<BannerDataModel> bannerData;
+  List<BannerDataModel>? bannerData;
   late List<CategoriesModel> categoriesData;
   late List<CategoriesModel> featuredData;
   bool isLoading = true;
@@ -20,7 +20,7 @@ class HomeScreenController extends GetxController {
     ]).then((value) {
       if (kDebugMode) {
         print('Data');
-        print(bannerData[0].image);
+        print(bannerData![0].image);
         print(categoriesData[0].id);
         print(featuredData[1].id);
       }
@@ -60,7 +60,7 @@ class HomeScreenController extends GetxController {
             ),
           )
           .toList();
-      for (var i = 0; i < bannerData.length; i++) {
+      for (var i = 0; i < bannerData!.length; i++) {
         isSelected.add(false.obs);
       }
 
