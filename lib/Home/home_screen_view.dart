@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../categories/categories_and_featured_screen.dart';
-import '../shared/const.dart';
 import 'drawer.dart';
 import 'model/categories_data_model.dart';
 
@@ -114,7 +113,7 @@ class HomeScreenView extends StatelessWidget {
             } else {
               return Container(
                 height: size.height,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
                 child: const Center(

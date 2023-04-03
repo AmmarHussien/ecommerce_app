@@ -3,7 +3,6 @@ import 'package:ecommerce_app/authentication/otp_verification_screen/otp_screen_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Home/home_screen_view.dart';
 import '../../shared/custom_buttom.dart';
 
 class LoginScreen extends StatelessWidget {

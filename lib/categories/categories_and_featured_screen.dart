@@ -5,12 +5,11 @@ import 'package:get/get.dart';
 import '../Home/model/categories_data_model.dart';
 
 class CategoriesAndFeaturedScreen extends StatelessWidget {
-  CategoriesAndFeaturedScreen({super.key, required this.model});
+  const CategoriesAndFeaturedScreen({super.key, required this.model});
 
-  List<CategoriesModel> model;
+  final List<CategoriesModel> model;
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Container(
       color: Colors.blueAccent,
       child: SafeArea(

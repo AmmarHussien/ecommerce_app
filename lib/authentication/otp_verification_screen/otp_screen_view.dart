@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/Home/home_screen_view.dart';
-import 'package:ecommerce_app/authentication/login_screen/login_screen_controller.dart';
 import 'package:ecommerce_app/shared/custom_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,6 @@ class OtpVerficationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    LoginScreenController controller = Get.find();
 
     return Container(
       color: Colors.black,

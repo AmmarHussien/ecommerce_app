@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/Home/home_screen_view.dart';
 import 'package:ecommerce_app/authentication/otp_verification_screen/otp_screen_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,16 +30,16 @@ class LoginScreenController extends GetxController {
         verificationFailed: (FirebaseAuthException exception) {
           showAlert('Verification Failed');
         },
-        codeSent: (String _verificationId, int? forceRespondToken) {
+        codeSent: (String verificationID, int? forceRespondToken) {
           showAlert('Verification code sent');
 
-          verificationId = _verificationId;
+          verificationId = verificationID;
           Get.to(
             () => const OtpVerficationScreen(),
           );
         },
-        codeAutoRetrievalTimeout: (String _verificationId) {
-          verificationId = _verificationId;
+        codeAutoRetrievalTimeout: (String verificationID) {
+          verificationId = verificationID;
         },
       );
     } catch (e) {
@@ -61,7 +62,9 @@ class LoginScreenController extends GetxController {
 
       Get.to(() => const HomeScreenView());
 
-      print('Sign In Sucessfully, User UID: ${user.uid}');
+      if (kDebugMode) {
+        print('Sign In Sucessfully, User UID: ${user.uid}');
+      }
     } catch (e) {
       showAlert('Error Occured: $e');
     }

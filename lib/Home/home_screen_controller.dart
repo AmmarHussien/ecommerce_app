@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/Home/model/banner_data_model.dart';
 import 'package:ecommerce_app/Home/model/categories_data_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class HomeScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -18,10 +18,13 @@ class HomeScreenController extends GetxController {
       getAllCategories(),
       getFeatureData(),
     ]).then((value) {
-      print('Data');
-      print(bannerData[0].image);
-      print(categoriesData[0].id);
-      print(featuredData[1].id);
+      if (kDebugMode) {
+        print('Data');
+        print(bannerData[0].image);
+        print(categoriesData[0].id);
+        print(featuredData[1].id);
+      }
+
       isLoading = false;
       update();
     });
@@ -79,7 +82,6 @@ class HomeScreenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getAllData();
   }
