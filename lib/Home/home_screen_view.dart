@@ -1,7 +1,10 @@
+import 'package:ecommerce_app/Home/home_screen_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../shared/const.dart';
 import 'drawer.dart';
+import 'model/categories_data_model.dart';
 
 class HomeScreenView extends StatelessWidget {
   const HomeScreenView({super.key});
@@ -9,80 +12,107 @@ class HomeScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final controller = Get.put(HomeScreenController());
+
     return Container(
       color: Colors.blueAccent,
       child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            //automaticallyImplyLeading: false,
-            title: const Text(
-              'Ecommerce App',
-            ),
-            backgroundColor: Colors.blueAccent,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.shopping_cart,
-                ),
-              ),
-            ],
-          ),
-          drawer: const HomeScreenDrawer(),
-          body: SizedBox(
-            height: size.height,
-            width: size.width,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // banner
-
-                  SizedBox(
-                    height: size.height / 3.5,
-                    width: size.width / 1.1,
-                    child: PageView.builder(
-                      itemCount: 1,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(image: NetworkImage(image)),
-                          ),
-                        );
-                      },
-                    ),
+        child: GetBuilder<HomeScreenController>(
+          builder: (value) {
+            if (!value.isLoading) {
+              return Scaffold(
+                appBar: AppBar(
+                  //automaticallyImplyLeading: false,
+                  title: const Text(
+                    'Ecommerce App',
                   ),
-
-                  // indecator
-                  SizedBox(
-                    height: size.height / 25,
-                    width: size.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  backgroundColor: Colors.blueAccent,
+                  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                      ),
+                    ),
+                  ],
+                ),
+                drawer: const HomeScreenDrawer(),
+                body: SizedBox(
+                  height: size.height,
+                  width: size.width,
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: [
-                        for (int i = 0; i < 4; i++) indecator(size, false),
+                        // banner
+
+                        SizedBox(
+                          height: size.height / 3.5,
+                          width: size.width / 1.1,
+                          child: PageView.builder(
+                            itemCount: controller.bannerData.length,
+                            onPageChanged: controller.changeIndecator,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        controller.bannerData[index].image),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+                        // indecator
+                        SizedBox(
+                            height: size.height / 25,
+                            width: size.width,
+                            child: Obx(() {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  for (int i = 0;
+                                      i < controller.isSelected.length;
+                                      i++)
+                                    indecator(
+                                        size, controller.isSelected[i].value),
+                                ],
+                              );
+                            })),
+
+                        // categories..
+                        categoriesTitle(
+                          size,
+                          'All Categories',
+                          () {},
+                        ),
+
+                        listViewBuilder(size, controller.categoriesData),
+
+                        categoriesTitle(
+                          size,
+                          'Featured',
+                          () {},
+                        ),
+                        listViewBuilder(size, controller.featuredData),
                       ],
                     ),
                   ),
-
-                  // categories..
-                  categoriesTitle(
-                    size,
-                    'All Categories',
-                    () {},
-                  ),
-
-                  listViewBuilder(size),
-
-                  categoriesTitle(
-                    size,
-                    'Featured',
-                    () {},
-                  ),
-                  listViewBuilder(size),
-                ],
-              ),
-            ),
-          ),
+                ),
+              );
+            } else {
+              return Container(
+                height: size.height,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
         ),
       ),
     );
@@ -135,24 +165,25 @@ class HomeScreenView extends StatelessWidget {
 
   Widget listViewBuilder(
     Size size,
+    List<CategoriesModel> data,
   ) {
     return SizedBox(
       height: size.height / 8,
       width: size.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: images.length,
+        itemCount: data.length,
         itemBuilder: (context, index) {
           return listViewBuilderItem(
             size,
-            images[index],
+            data[index],
           );
         },
       ),
     );
   }
 
-  Widget listViewBuilderItem(Size size, Categories categories) {
+  Widget listViewBuilderItem(Size size, CategoriesModel categories) {
     return Container(
       height: size.height / 8,
       width: size.width / 4.2,
@@ -164,7 +195,7 @@ class HomeScreenView extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  categories.img,
+                  categories.image,
                 ),
               ),
             ),
