@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/Home/home_screen_controller.dart';
+import 'package:ecommerce_app/items/items_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../categories/categories_and_featured_screen.dart';
 import '../shared/const.dart';
 import 'drawer.dart';
 import 'model/categories_data_model.dart';
@@ -85,7 +87,11 @@ class HomeScreenView extends StatelessWidget {
                         categoriesTitle(
                           size,
                           'All Categories',
-                          () {},
+                          () {
+                            Get.to(() => CategoriesAndFeaturedScreen(
+                                  model: controller.categoriesData,
+                                ));
+                          },
                         ),
 
                         listViewBuilder(size, controller.categoriesData),
@@ -93,7 +99,11 @@ class HomeScreenView extends StatelessWidget {
                         categoriesTitle(
                           size,
                           'Featured',
-                          () {},
+                          () {
+                            Get.to(() => CategoriesAndFeaturedScreen(
+                                  model: controller.featuredData,
+                                ));
+                          },
                         ),
                         listViewBuilder(size, controller.featuredData),
                       ],
@@ -184,35 +194,47 @@ class HomeScreenView extends StatelessWidget {
   }
 
   Widget listViewBuilderItem(Size size, CategoriesModel categories) {
-    return Container(
-      height: size.height / 8,
-      width: size.width / 4.2,
-      child: Column(
-        children: [
-          Container(
-            height: size.height / 10,
-            width: size.width / 2.2,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  categories.image,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ),
+      child: GestureDetector(
+        onTap: () {
+          Get.to(
+            () => const ItemsScreen(),
+          );
+        },
+        child: SizedBox(
+          height: size.height / 8,
+          width: size.width / 4.2,
+          child: Column(
+            children: [
+              Container(
+                height: size.height / 10,
+                width: size.width / 2.2,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      categories.image,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: SizedBox(
-              child: Text(
-                categories.title,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
+              Expanded(
+                child: SizedBox(
+                  child: Text(
+                    categories.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
