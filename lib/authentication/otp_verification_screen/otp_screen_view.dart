@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/Home/home_screen_view.dart';
 import 'package:ecommerce_app/authentication/login_screen/login_screen_controller.dart';
 import 'package:ecommerce_app/shared/custom_buttom.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,8 @@ class OtpVerficationScreen extends StatelessWidget {
                   CustomButtom(
                     text: 'Submit',
                     function: () {
-                      controller.signInWithPhoneNumber();
+                      //controller.signInWithPhoneNumber();
+                      Get.to(() => const HomeScreenView());
                     },
                     buttomWidth: 2.5,
                   ),

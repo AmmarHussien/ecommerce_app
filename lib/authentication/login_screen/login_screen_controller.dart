@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/Home/home_screen_view.dart';
 import 'package:ecommerce_app/authentication/otp_verification_screen/otp_screen_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +21,12 @@ class LoginScreenController extends GetxController {
     update();
     try {
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+20${phone.text}',
-        verificationCompleted: (credential) async {
+        phoneNumber: '+2001146082989',
+        verificationCompleted: (PhoneAuthCredential credential) async {
           await _auth.signInWithCredential(credential);
           showAlert('Verifed');
         },
-        verificationFailed: (exception) {
+        verificationFailed: (FirebaseAuthException exception) {
           showAlert('Verification Failed');
         },
         codeSent: (String _verificationId, int? forceRespondToken) {
@@ -45,7 +46,7 @@ class LoginScreenController extends GetxController {
     }
   }
 
-  void signInWithPhoneNumber() async {
+  void xsignInWithPhoneNumber() async {
     try {
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
@@ -57,6 +58,8 @@ class LoginScreenController extends GetxController {
       final User? user = signInUser.user;
 
       showAlert('Sign In Sucessfully, User UID: ${user!.uid}');
+
+      Get.to(() => const HomeScreenView());
 
       print('Sign In Sucessfully, User UID: ${user.uid}');
     } catch (e) {

@@ -3,6 +3,7 @@ import 'package:ecommerce_app/authentication/otp_verification_screen/otp_screen_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Home/home_screen_view.dart';
 import '../../shared/custom_buttom.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -177,7 +178,10 @@ class LoginScreen extends StatelessWidget {
                         text: 'Login/SignUp',
                         buttomWidth: 2.8,
                         function: () {
-                          controller.verifyPhoneNumber();
+                          //controller.verifyPhoneNumber();
+                          Get.to(
+                            () => const OtpVerficationScreen(),
+                          );
                         },
                         radius: BorderRadius.circular(10),
                       ),
