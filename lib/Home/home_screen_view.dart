@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/Home/home_screen_controller.dart';
+import 'package:ecommerce_app/cart/cart_screen.dart';
 import 'package:ecommerce_app/items/items_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,11 @@ class HomeScreenView extends StatelessWidget {
                   backgroundColor: Colors.blueAccent,
                   actions: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(
+                          () => const CartScreen(),
+                        );
+                      },
                       icon: const Icon(
                         Icons.shopping_cart,
                       ),

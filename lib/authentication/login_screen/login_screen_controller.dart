@@ -17,12 +17,12 @@ class LoginScreenController extends GetxController {
   bool isLoading = false;
 
   void verifyPhoneNumber() async {
-    isLoading = true;
+    isLoading = false;
 
     update();
     try {
       await _auth.verifyPhoneNumber(
-        phoneNumber: '+2001146082989',
+        phoneNumber: '+201146082989',
         verificationCompleted: (PhoneAuthCredential credential) async {
           await _auth.signInWithCredential(credential);
           showAlert('Verifed');
@@ -47,7 +47,7 @@ class LoginScreenController extends GetxController {
     }
   }
 
-  void xsignInWithPhoneNumber() async {
+  void signInWithPhoneNumber() async {
     try {
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,

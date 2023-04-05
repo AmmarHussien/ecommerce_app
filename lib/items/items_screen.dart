@@ -4,6 +4,8 @@ import 'package:ecommerce_app/items/search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'items_details/item_details_screen.dart';
+
 class ItemsScreen extends StatelessWidget {
   ItemsScreen({
     super.key,
@@ -23,7 +25,7 @@ class ItemsScreen extends StatelessWidget {
     controller.categoryTitle = categoryTitle;
     controller.categoryId = categoryId;
 
-    controller.getSubCategoryData();
+    controller.getPaginedData();
 
     return Container(
       color: Colors.blueAccent,
@@ -51,6 +53,7 @@ class ItemsScreen extends StatelessWidget {
                       builder: (value) {
                         if (!value.isLoading) {
                           return ListView.builder(
+                            controller: controller.scrollController,
                             itemCount: controller.itemsData.length,
                             itemBuilder: (context, index) {
                               return listViewBuilderItems(
@@ -68,6 +71,18 @@ class ItemsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                Obx(() {
+                  if (controller.isLoadingData.value) {
+                    return Container(
+                      height: size.height / 10,
+                      width: size.width,
+                      alignment: Alignment.center,
+                      child: const CircularProgressIndicator(),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                })
               ],
             ),
           ),
@@ -86,64 +101,69 @@ class ItemsScreen extends StatelessWidget {
         horizontal: 20,
         vertical: 10,
       ),
-      child: SizedBox(
-        height: size.height / 8,
-        width: size.width / 1.1,
-        child: Row(
-          children: [
-            Container(
-              height: size.height / 8,
-              width: size.width / 4.5,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(itemsModel.img),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: size.width / 22,
-            ),
-            Expanded(
-              child: SizedBox(
-                child: RichText(
-                  text: TextSpan(
-                    text: '${itemsModel.title}\n',
-                    style: const TextStyle(
-                      fontSize: 17,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: '${itemsModel.totalPrice}',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "   ${itemsModel.sellingPrice}  ",
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                      TextSpan(
-                        text: '$descount %Off',
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.green,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+      child: GestureDetector(
+        onTap: () {
+          Get.to(() => const ItemScreenDetails());
+        },
+        child: SizedBox(
+          height: size.height / 8,
+          width: size.width / 1.1,
+          child: Row(
+            children: [
+              Container(
+                height: size.height / 8,
+                width: size.width / 4.5,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(itemsModel.img),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                width: size.width / 22,
+              ),
+              Expanded(
+                child: SizedBox(
+                  child: RichText(
+                    text: TextSpan(
+                      text: '${itemsModel.title}\n',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '${itemsModel.totalPrice}',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "   ${itemsModel.sellingPrice}  ",
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '$descount %Off',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.green,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
