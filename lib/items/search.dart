@@ -2,7 +2,7 @@ import 'package:ecommerce_app/items/item_controller_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Home/model/items_model.dart';
+import '../model/items_model.dart';
 
 class SearchScreen extends SearchDelegate {
   ItemControlleScreen controller = Get.find();

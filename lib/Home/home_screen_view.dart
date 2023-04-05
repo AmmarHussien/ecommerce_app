@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../categories/categories_and_featured_screen.dart';
 import 'drawer.dart';
-import 'model/categories_data_model.dart';
+import '../model/categories_data_model.dart';
 
 class HomeScreenView extends StatelessWidget {
   const HomeScreenView({super.key});

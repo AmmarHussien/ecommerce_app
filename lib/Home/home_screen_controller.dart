@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_app/Home/model/banner_data_model.dart';
-import 'package:ecommerce_app/Home/model/categories_data_model.dart';
+import 'package:ecommerce_app/model/banner_data_model.dart';
+import 'package:ecommerce_app/model/categories_data_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 

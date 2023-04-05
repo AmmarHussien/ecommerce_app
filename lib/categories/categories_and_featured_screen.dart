@@ -2,7 +2,7 @@ import 'package:ecommerce_app/items/items_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Home/model/categories_data_model.dart';
+import '../model/categories_data_model.dart';
 
 class CategoriesAndFeaturedScreen extends StatelessWidget {
   const CategoriesAndFeaturedScreen({super.key, required this.model});
