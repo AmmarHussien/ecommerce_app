@@ -70,22 +70,25 @@ class HomeScreenView extends StatelessWidget {
                           ),
                         ),
 
-                        // indecator
-                        SizedBox(
-                            height: size.height / 25,
-                            width: size.width,
-                            child: Obx(() {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  for (int i = 0;
-                                      i < controller.isSelected.length;
-                                      i++)
-                                    indecator(
-                                        size, controller.isSelected[i].value),
-                                ],
-                              );
-                            })),
+                        //indecator
+                        // SizedBox(
+                        //   height: size.height / 25,
+                        //   width: size.width,
+                        //   child: Obx(
+                        //     () {
+                        //       return Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           for (int i = 0;
+                        //               i < controller.isSelected.length;
+                        //               i++)
+                        //             indecator(
+                        //                 size, controller.isSelected[i].value),
+                        //         ],
+                        //       );
+                        //     },
+                        //   ),
+                        // ),
 
                         // categories..
                         categoriesTitle(

@@ -1,192 +1,224 @@
 import 'package:ecommerce_app/cart/cart_screen.dart';
-import 'package:ecommerce_app/shared/const.dart';
+import 'package:ecommerce_app/items/items_details/item_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
+
+import '../../shared/const.dart';
 
 class ItemScreenDetails extends StatelessWidget {
-  const ItemScreenDetails({super.key});
+  String id;
+  ItemScreenDetails({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
     final Size size = Get.size;
+    final controller = Get.put(ItemDetailController());
+
+    controller.getItemDetails(id);
+
     return Container(
       color: Colors.blueAccent,
       child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Product details'),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Get.to(
-                    () => const CartScreen(),
-                  );
-                },
-                icon: const Icon(
-                  Icons.shopping_cart_sharp,
-                ),
-              ),
-            ],
-            backgroundColor: Colors.blueAccent,
-          ),
-          body: SizedBox(
-            height: size.height,
-            width: size.width,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height / 3.5,
-                    width: size.width / 1.1,
-                    child: PageView.builder(
-                      itemCount: 3,
-                      //onPageChanged: controller.changeIndecator,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                image,
-                              ),
-                            ),
-                          ),
+        child: GetBuilder<ItemDetailController>(
+          builder: (value) {
+            if (!controller.isLoading) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Product details'),
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        Get.to(
+                          () => const CartScreen(),
                         );
                       },
+                      icon: const Icon(
+                        Icons.shopping_cart_sharp,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: size.height / 25,
-                    width: size.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  ],
+                  backgroundColor: Colors.blueAccent,
+                ),
+                body: SizedBox(
+                  height: size.height,
+                  width: size.width,
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: [
-                        for (int i = 0; i < 3; i++) indecator(size, false),
+                        SizedBox(
+                          height: size.height / 3.5,
+                          width: size.width / 1.1,
+                          child: PageView.builder(
+                            itemCount: controller.modelDetail.banners.length,
+                            //onPageChanged: controller.changeIndecator,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      controller.modelDetail.banners[index],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 25,
+                          width: size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              for (int i = 0;
+                                  i < controller.modelDetail.banners.length;
+                                  i++)
+                                indecator(size, false),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 25,
+                        ),
+                        SizedBox(
+                          width: size.width / 1.1,
+                          child: Text(
+                            controller.modelDetail.title,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 45,
+                        ),
+                        SizedBox(
+                          width: size.width / 1.1,
+                          child: RichText(
+                            text: TextSpan(
+                              text: '${controller.modelDetail.totalPrice}',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      ' ${controller.modelDetail.sellingPrice}',
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "  ${controller.discount} % off  ",
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.green,
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 25,
+                        ),
+                        SizedBox(
+                          width: size.width / 1.1,
+                          child: Text(
+                            controller.modelDetail.description,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 50,
+                        ),
+                        SizedBox(
+                          width: size.width / 1.1,
+                          child: const Text(
+                            description,
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 50,
+                        ),
+                        ListTile(
+                          onTap: () {},
+                          title: const Text('See Reviews'),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios,
+                          ),
+                          leading: const Icon(
+                            Icons.star,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height / 25,
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: size.height / 25,
-                  ),
-                  SizedBox(
-                    width: size.width / 1.1,
-                    child: const Text(
-                      'LED TV',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height / 45,
-                  ),
-                  SizedBox(
-                    width: size.width / 1.1,
-                    child: RichText(
-                      text: const TextSpan(
-                        text: '48,000',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.lineThrough,
+                ),
+                bottomNavigationBar: SizedBox(
+                  height: size.height / 15,
+                  width: size.width,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: customBottom(
+                          size,
+                          () {
+                            if (controller.isAlreadyAvalibale) {
+                              Get.to(() => const CartScreen());
+                            } else {
+                              controller.addItemsToCart();
+                            }
+                          },
+                          Colors.redAccent,
+                          controller.isAlreadyAvalibale
+                              ? 'Go to Cart'
+                              : " Add To Cart",
                         ),
-                        children: [
-                          TextSpan(
-                            text: ' 40,000',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "   40% off  ",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.green,
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ],
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height / 25,
-                  ),
-                  SizedBox(
-                    width: size.width / 1.1,
-                    child: const Text(
-                      'Description',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                      Expanded(
+                        child: customBottom(
+                          size,
+                          () {
+                            print('Buy Now');
+                          },
+                          Colors.white,
+                          'Buy Now',
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height / 50,
-                  ),
-                  SizedBox(
-                    width: size.width / 1.1,
-                    child: const Text(
-                      description,
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height / 50,
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    title: const Text('See Reviews'),
-                    trailing: const Icon(
-                      Icons.arrow_forward_ios,
-                    ),
-                    leading: const Icon(
-                      Icons.star,
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height / 25,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          bottomNavigationBar: SizedBox(
-            height: size.height / 15,
-            width: size.width,
-            child: Row(
-              children: [
-                Expanded(
-                  child: customBottom(
-                    size,
-                    () {
-                      print('Add to Cart');
-                    },
-                    Colors.redAccent,
-                    'Add to Cart',
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: customBottom(
-                    size,
-                    () {
-                      print('Buy Now');
-                    },
-                    Colors.white,
-                    'Buy Now',
-                  ),
+              );
+            } else {
+              return Container(
+                color: Colors.white,
+                child: const Center(
+                  child: CircularProgressIndicator(),
                 ),
-              ],
-            ),
-          ),
+              );
+            }
+          },
         ),
       ),
     );

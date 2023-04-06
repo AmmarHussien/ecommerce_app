@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
+import 'Home/home_screen_view.dart';
+import 'authentication/login_screen/login_screen_view.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Authentication(),
+      home: const HomeScreenView(),
     );
   }
 }

@@ -53,18 +53,14 @@ class HomeScreenController extends GetxController {
 
   Future<void> getAllCategories() async {
     await _firestore.collection('categories').get().then((value) {
-      categoriesData = value.docs
-          .map(
-            (e) => CategoriesModel.fromJson(
-              e.data(),
-            ),
-          )
-          .toList();
-      for (var i = 0; i < bannerData!.length; i++) {
-        isSelected.add(false.obs);
-      }
+      categoriesData =
+          value.docs.map((e) => CategoriesModel.fromJson(e.data())).toList();
 
-      isSelected[0].value = true;
+      // for (var i = 0; i < bannerData!.length; i++) {
+      //   isSelected.add(false.obs);
+      // }
+
+      // isSelected[0].value = true;
     });
   }
 

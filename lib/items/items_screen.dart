@@ -103,7 +103,11 @@ class ItemsScreen extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Get.to(() => const ItemScreenDetails());
+          Get.to(
+            () => ItemScreenDetails(
+              id: itemsModel.detailsId,
+            ),
+          );
         },
         child: SizedBox(
           height: size.height / 8,

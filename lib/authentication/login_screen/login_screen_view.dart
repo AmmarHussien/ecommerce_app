@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/authentication/login_screen/login_screen_controller.dart';
-import 'package:ecommerce_app/authentication/otp_verification_screen/otp_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../shared/custom_buttom.dart';
+import '../singup_screen/singup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -134,55 +134,86 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: size.height / 15,
+                        //height: size.height / 10,
                         width: size.width / 1.2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          border: Border.all(
-                            width: 1,
-                            color: const Color.fromRGBO(
-                              9,
-                              32,
-                              196,
-                              1,
+                        decoration: const BoxDecoration(
+                            // borderRadius: BorderRadius.circular(
+                            //   10,
+                            // ),
+                            // border: Border.all(
+                            //   width: 1,
+                            //   color: const Color.fromRGBO(
+                            //     9,
+                            //     32,
+                            //     196,
+                            //     1,
+                            //   ),
+                            // ),
                             ),
-                          ),
-                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 10,
                           ),
-                          child: TextFormField(
-                            controller: controller.phone,
-                            maxLength: 11,
-                            keyboardType: TextInputType.phone,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              hintMaxLines: 15,
-                              hintText: 'Phone Number',
-                              counterText: '',
-                              // label: Text(
-                              //   'Phone Number',
-                              // ),
-                            ),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: controller.email,
+                                //maxLength: 10,
+                                keyboardType: TextInputType.phone,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  hintMaxLines: 15,
+                                  hintText: 'Email',
+                                  counterText: '',
+                                  label: const Text(
+                                    'Email',
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 170,
+                              ),
+                              TextFormField(
+                                controller: controller.password,
+                                //maxLength: 10,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  hintMaxLines: 15,
+                                  hintText: 'Password',
+                                  counterText: '',
+                                  label: const Text(
+                                    'Password',
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: size.height / 10,
+                        height: size.height / 50,
                       ),
                       CustomButtom(
-                        text: 'Login/SignUp',
+                        text: 'Login',
                         buttomWidth: 2.8,
                         function: () {
-                          //controller.verifyPhoneNumber();
-                          Get.to(
-                            () => const OtpVerficationScreen(),
-                          );
+                          controller.logIn(context);
+                          // Get.to(
+                          //   () => const OtpVerficationScreen(),
+                          //);
                         },
                         radius: BorderRadius.circular(10),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Get.to(() => const SingupScreen());
+                        },
+                        child: const Text('Signup'),
                       ),
                     ],
                   ),

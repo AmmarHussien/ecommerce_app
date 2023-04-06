@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'home_screen_controller.dart';
+
 class HomeScreenDrawer extends StatelessWidget {
   const HomeScreenDrawer({super.key});
 
+  //final controller = Get.put(HomeScreenController());
   @override
   Widget build(BuildContext context) {
     return Drawer(
