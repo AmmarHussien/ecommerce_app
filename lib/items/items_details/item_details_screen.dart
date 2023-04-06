@@ -32,7 +32,7 @@ class ItemScreenDetails extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         Get.to(
-                          () => const CartScreen(),
+                          () =>  CartScreen(),
                         );
                       },
                       icon: const Icon(
@@ -185,7 +185,7 @@ class ItemScreenDetails extends StatelessWidget {
                           size,
                           () {
                             if (controller.isAlreadyAvalibale) {
-                              Get.to(() => const CartScreen());
+                              Get.to(() =>  CartScreen());
                             } else {
                               controller.addItemsToCart();
                             }
