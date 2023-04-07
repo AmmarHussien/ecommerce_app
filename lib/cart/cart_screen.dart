@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/adrresss/address_screen.dart';
 import 'package:ecommerce_app/cart/cart_controller_screen.dart';
 import 'package:ecommerce_app/model/item_detail_model.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,9 @@ class CartScreen extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => AddressScreen());
+                          },
                           child: Container(
                             height: size.height / 18,
                             width: size.width / 2.9,
@@ -134,7 +137,7 @@ class CartScreen extends StatelessWidget {
                       child: SizedBox(
                         child: RichText(
                           text: TextSpan(
-                            text: '${detailModel.title}}\n',
+                            text: '${detailModel.title}\n',
                             style: const TextStyle(
                               fontSize: 17,
                               color: Colors.black,

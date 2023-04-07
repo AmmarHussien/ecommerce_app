@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../my orders/my_order_screen.dart';
 import 'home_screen_controller.dart';
 
 class HomeScreenDrawer extends StatelessWidget {
@@ -22,7 +24,7 @@ class HomeScreenDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              //Get.to(() => const MyOrdersScreen());
+              Get.to(() => const MyOrdersScreen());
             },
             leading: const Icon(Icons.shopping_bag),
             title: const Text(
