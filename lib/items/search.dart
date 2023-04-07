@@ -71,7 +71,7 @@ class SearchScreen extends SearchDelegate {
   Widget listViewBuilderItems(Size size, ItemsModel itemsModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-      child: Container(
+      child: SizedBox(
         height: size.height / 8,
         width: size.width / 1.1,
         child: Row(

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/cart/cart_screen.dart';
 import 'package:ecommerce_app/items/items_details/item_details_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -200,7 +201,9 @@ class ItemScreenDetails extends StatelessWidget {
                         child: customBottom(
                           size,
                           () {
-                            print('Buy Now');
+                            if (kDebugMode) {
+                              print('Buy Now');
+                            }
                           },
                           Colors.white,
                           'Buy Now',

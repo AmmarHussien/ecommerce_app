@@ -47,7 +47,7 @@ class MyOrdersScreen extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Get.to(
-            () => MyOrdersDetailsScreen(
+            () => const MyOrdersDetailsScreen(
                 //id: itemsModel.detailsId,
                 ),
           );

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/model/item_detail_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class CartControllerScreen extends GetxController {
@@ -10,6 +11,10 @@ class CartControllerScreen extends GetxController {
   List<ItemDetailModel> productsDetails = [];
 
   bool isLoading = true;
+
+  int totalPrice = 0;
+  int totalDiscount = 0;
+  int totalSeeilgPrice = 0;
 
   Future<void> getCartItem() async {
     productsDetails = [];
@@ -30,7 +35,9 @@ class CartControllerScreen extends GetxController {
         getProductDetails();
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -47,16 +54,31 @@ class CartControllerScreen extends GetxController {
           },
         );
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     }
+    calculatePrice();
     isLoading = false;
     update();
   }
 
-  int calculateDiscount(int totalPrice, int sellPrice) {
+  int calculateDiscount(
+    int totalPrice,
+    int sellPrice,
+  ) {
     double discount = ((totalPrice - sellPrice) / totalPrice) * 100;
     return discount.toInt();
+  }
+
+  void calculatePrice() {
+    for (var item in productsDetails) {
+      totalPrice = totalPrice + item.totalPrice;
+      totalSeeilgPrice = totalSeeilgPrice + item.sellingPrice;
+    }
+
+    totalDiscount = totalPrice - totalSeeilgPrice;
   }
 
   Future<void> removeFromCart(String id) async {
@@ -72,7 +94,11 @@ class CartControllerScreen extends GetxController {
           .then((value) {
         getCartItem();
       });
-    } catch (e) {}
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   @override

@@ -1,8 +1,11 @@
+import 'package:ecommerce_app/confirmation/confirmation_controller_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ConfirmationScreen extends StatelessWidget {
-  const ConfirmationScreen({super.key});
+  ConfirmationScreen({super.key});
+
+  final controller = Get.put(ConfirmationControllerScreen());
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,9 @@ class ConfirmationScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Confirmation'),
+            title: const Text(
+              'Confirmation',
+            ),
           ),
           body: SizedBox(
             height: size.height,
@@ -65,34 +70,34 @@ class ConfirmationScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Name',
-              style: TextStyle(
+              controller.name,
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 10,
               ),
               child: Text(
-                'Address',
-                style: TextStyle(
+                controller.address,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             Text(
-              'Pin Code',
-              style: TextStyle(
+              controller.pincode,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(
-              height: size.height / 30,
-            ),
+            // SizedBox(
+            //   height: size.height / 30,
+            // ),
             // GestureDetector(
             //   onTap: () {},
             //   child: Container(
@@ -162,18 +167,18 @@ class ConfirmationScreen extends StatelessWidget {
             ),
             text(
               'Total Price:',
-              '\$ 1500 ',
+              '\$ ${controller.totalPrice}',
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: text(
                 'Discount:',
-                '\$ 100',
+                '\$ ${controller.totalDiscount}',
               ),
             ),
             text(
               'Payable Price :',
-              '\$ 1400',
+              '\$ ${controller.payablePrice}',
             ),
           ],
         ),

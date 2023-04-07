@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginScreenController extends GetxController {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //final TextEditingController phone = TextEditingController();
   //final TextEditingController otp = TextEditingController();

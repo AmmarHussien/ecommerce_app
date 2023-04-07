@@ -14,12 +14,12 @@ final TextEditingController password = TextEditingController();
 
 class SingupScreenController extends GetxController {
   Future<User?> createAccount(BuildContext context) async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
       UserCredential userCrendetial =
-          await _auth.createUserWithEmailAndPassword(
+          await auth.createUserWithEmailAndPassword(
         email: email.text,
         password: password.text,
       );
@@ -30,12 +30,12 @@ class SingupScreenController extends GetxController {
 
       userCrendetial.user!.updateDisplayName(firstName.text);
 
-      await firestore.collection('users').doc(_auth.currentUser!.uid).set({
+      await firestore.collection('users').doc(auth.currentUser!.uid).set({
         "firstName": firstName.text,
         "lastName": lastName.text,
         "useremail": email.text,
         'phone': phone.text,
-        "uid": _auth.currentUser!.uid,
+        "uid": auth.currentUser!.uid,
       });
 
       Get.to(() => const LoginScreen());

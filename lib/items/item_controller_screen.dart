@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/model/items_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,7 +39,9 @@ class ItemControlleScreen extends GetxController {
         update();
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -74,7 +77,9 @@ class ItemControlleScreen extends GetxController {
         isSearchLoading = false;
         update();
       } catch (e) {
-        print(e);
+        if (kDebugMode) {
+          print(e);
+        }
       }
     }
   }
@@ -85,7 +90,9 @@ class ItemControlleScreen extends GetxController {
         await getSubCategoryData();
       }
     } else {
-      print('No more data');
+      if (kDebugMode) {
+        print('No more data');
+      }
     }
   }
 
